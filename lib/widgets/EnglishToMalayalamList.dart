@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:offline_english_malayalam_dictionary/database/db.dart';
+import 'package:offline_english_malayalam_dictionary/views/WordDetails.dart';
 
 class EnglishToMalayalamList extends StatefulWidget {
   const EnglishToMalayalamList({Key key}) : super(key: key);
@@ -65,7 +66,12 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, '/word-details',
+                                          arguments: snapshot.data[index]
+                                              ['english_word']);
+                                    },
                                     shape: Border.all(
                                         color: Theme.of(context).primaryColor,
                                         width: 0.1),
@@ -73,7 +79,8 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
                                         snapshot.data[index]['english_word']));
                               });
                         }
-                        return Text("data");
+                        // TODO: implement progress
+                        return Text("else of streambuilder");
                       }),
                 ),
               ],
@@ -81,7 +88,7 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
           }
           // TODO: implement progress
           return Container(
-            child: Text('hi'),
+            child: Text('else of futurebuilder'),
           );
         });
   }

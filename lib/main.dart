@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:offline_english_malayalam_dictionary/views/Home.dart';
 import 'package:offline_english_malayalam_dictionary/views/MalayalamToEnglish.dart';
+import 'package:offline_english_malayalam_dictionary/views/WordDetails.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const Home(title: 'English Malayalam Dictionary'),
         '/malayalam': (context) =>
-            const MalayalamToEnglish(title: 'Malayalam English Dictionary')
+            const MalayalamToEnglish(title: 'Malayalam English Dictionary'),
+        '/word-details': (context) => const WordDetails()
       },
       initialRoute: '/',
       theme: ThemeData(
