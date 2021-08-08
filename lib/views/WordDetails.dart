@@ -37,6 +37,7 @@ class _WordDetailsState extends State<WordDetails> {
   Widget build(BuildContext context) {
     word = ModalRoute.of(context)!.settings.arguments;
     malayalamDefinition = _getMalayalamDefinition();
+
     return Scaffold(
         appBar:
             AppBar(title: Text(word.toString()), centerTitle: true, actions: [
