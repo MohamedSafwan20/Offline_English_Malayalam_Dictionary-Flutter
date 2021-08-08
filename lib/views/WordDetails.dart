@@ -24,20 +24,13 @@ class _WordDetailsState extends State<WordDetails> {
         columns: ["malayalam_word"], where: 'english_word="$word"');
   }
 
-  Future _getDefaultEngine() async {
-    var engine = await flutterTts.getDefaultEngine;
-  }
-
-  Future _speak() async {
-    await flutterTts.awaitSpeakCompletion(true);
-    await flutterTts.speak("Hello");
+  void _speak(String word) {
+    flutterTts.speak(word);
   }
 
   @override
   void initState() {
     super.initState();
-
-    _getDefaultEngine();
   }
 
   @override
@@ -49,7 +42,7 @@ class _WordDetailsState extends State<WordDetails> {
             AppBar(title: Text(word.toString()), centerTitle: true, actions: [
           IconButton(
             onPressed: () {
-              _speak();
+              _speak(word.toString());
             },
             padding: const EdgeInsets.all(10.0),
             icon: Icon(
