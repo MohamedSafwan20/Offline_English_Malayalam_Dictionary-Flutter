@@ -1,5 +1,10 @@
-# offline_english_malayalam_dictionary
-
+# Offline English Malayalam Dictionary
+  English Malayalam dictionary using Flutter.
+  Using local database to avoid api calling and making it offline.
+  Also includes Malayalam to English definitions.
+  
+  Local Database path: assets/db/dictionary.db (sqlite3)
+  
 A new Flutter project.
 
 ## Getting Started
