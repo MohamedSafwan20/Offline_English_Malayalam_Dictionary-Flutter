@@ -69,7 +69,7 @@ class _WordDetailsState extends State<WordDetails> {
                   });
             }
 
-            return Text("Error");
+            return Center(child: Text("No Definition Available."));
           },
         ));
   }

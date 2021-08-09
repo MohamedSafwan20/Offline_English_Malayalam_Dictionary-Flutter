@@ -6,6 +6,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:offline_english_malayalam_dictionary/database/db.dart';
+// ignore: unused_import
 import 'package:offline_english_malayalam_dictionary/views/WordDetails.dart';
 import 'package:offline_english_malayalam_dictionary/widgets/Loading.dart';
 
@@ -19,6 +20,7 @@ class EnglishToMalayalamList extends StatefulWidget {
 class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
   var dictionaryData;
 
+  // ignore: close_sinks
   StreamController streamController = StreamController();
 
   getDictionaryData() async {
@@ -44,7 +46,6 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
         future: dictionaryData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            // englishWords = snapshot.data;
             return Column(
               children: [
                 TextField(
@@ -80,14 +81,12 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
                                         snapshot.data[index]['english_word']));
                               });
                         }
-                        // TODO: implement progress
                         return Loading();
                       }),
                 ),
               ],
             );
           }
-          // TODO: implement progress
           return Loading();
         });
   }
