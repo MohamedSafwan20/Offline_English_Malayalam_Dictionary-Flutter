@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:offline_english_malayalam_dictionary/database/db.dart';
 import 'package:offline_english_malayalam_dictionary/views/WordDetails.dart';
+import 'package:offline_english_malayalam_dictionary/widgets/Loading.dart';
 
 class EnglishToMalayalamList extends StatefulWidget {
   const EnglishToMalayalamList({Key key}) : super(key: key);
@@ -80,16 +81,14 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
                               });
                         }
                         // TODO: implement progress
-                        return Text("else of streambuilder");
+                        return Loading();
                       }),
                 ),
               ],
             );
           }
           // TODO: implement progress
-          return Container(
-            child: Text('else of futurebuilder'),
-          );
+          return Loading();
         });
   }
 }
