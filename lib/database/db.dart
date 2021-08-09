@@ -37,4 +37,10 @@ class DictionaryDatabase {
     return await db.query('dictionary',
         columns: ["english_word"], orderBy: "english_word ASC");
   }
+
+  Future<List> getMalayalamWordsWithDefinition() async {
+    Database db = await instance.database;
+
+    return await db.query('dictionary', orderBy: "malayalam_word ASC");
+  }
 }

@@ -1,34 +1,41 @@
-// unsounding dart null safety
-// @dart=2.9
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:offline_english_malayalam_dictionary/database/db.dart';
-// ignore: unused_import
-import 'package:offline_english_malayalam_dictionary/views/WordDetails.dart';
 import 'package:offline_english_malayalam_dictionary/widgets/Loading.dart';
 
-class EnglishToMalayalamList extends StatefulWidget {
-  const EnglishToMalayalamList({Key key}) : super(key: key);
+class MalayalamToEnglishList extends StatefulWidget {
+  const MalayalamToEnglishList({Key? key}) : super(key: key);
 
   @override
-  _EnglishToMalayalamListState createState() => _EnglishToMalayalamListState();
+  _MalayalamToEnglishListState createState() => _MalayalamToEnglishListState();
 }
 
-class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
+class _MalayalamToEnglishListState extends State<MalayalamToEnglishList> {
   // ignore: close_sinks
   StreamController streamController = StreamController();
 
+  List refactoredData = [];
+
   getDictionaryData() async {
-    return await DictionaryDatabase.instance.getEnglishWords();
+    return await DictionaryDatabase.instance.getMalayalamWordsWithDefinition();
   }
 
   filterWords(String text, List data) {
     List filteredWords =
-        data.where((item) => item['english_word'].startsWith(text)).toList();
+        data.where((item) => item['malayalam_word'].startsWith(text)).toList();
     streamController.sink.add(filteredWords);
+  }
+
+  refactorData(List dictionaryData) {
+    List list;
+    dictionaryData.forEach((item) {
+      list = item['malayalam_word'].split(";");
+      list.forEach((element) {
+        refactoredData.add(
+            {"malayalam_word": element, "english_word": item['english_word']});
+      });
+    });
   }
 
   @override
@@ -40,13 +47,14 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: getDictionaryData(),
-        builder: (context, snapshot) {
+        builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
+            refactorData(snapshot.data);
             return Column(
               children: [
                 TextField(
                   onChanged: (text) {
-                    filterWords(text, snapshot.data);
+                    filterWords(text, refactoredData);
                   },
                   decoration: InputDecoration(
                       fillColor: Theme.of(context).primaryColorLight,
@@ -57,24 +65,30 @@ class _EnglishToMalayalamListState extends State<EnglishToMalayalamList> {
                 Expanded(
                   child: StreamBuilder(
                       stream: streamController.stream,
-                      initialData: snapshot.data,
-                      builder: (context, snapshot) {
+                      initialData: refactoredData,
+                      builder: (context, AsyncSnapshot snapshot) {
                         if (snapshot.hasData) {
                           return ListView.builder(
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/word-details',
-                                          arguments: snapshot.data[index]
-                                              ['english_word']);
-                                    },
                                     shape: Border.all(
                                         color: Theme.of(context).primaryColor,
                                         width: 0.1),
-                                    title: Text(
-                                        snapshot.data[index]['english_word']));
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(snapshot.data[index]
+                                            ['malayalam_word']),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8.0),
+                                          child: Text(snapshot.data[index]
+                                              ['english_word']),
+                                        ),
+                                      ],
+                                    ));
                               });
                         }
                         return Loading();

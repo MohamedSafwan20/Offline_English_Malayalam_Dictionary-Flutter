@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:offline_english_malayalam_dictionary/widgets/MalayalamToEnglishList.dart';
 
 class MalayalamToEnglish extends StatefulWidget {
   const MalayalamToEnglish({Key? key, required this.title}) : super(key: key);
@@ -68,7 +69,7 @@ class _MalayalamToEnglishState extends State<MalayalamToEnglish> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(child: Text("hi")),
+      body: MalayalamToEnglishList(),
     );
   }
 }
