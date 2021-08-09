@@ -84,8 +84,12 @@ class _MalayalamToEnglishListState extends State<MalayalamToEnglishList> {
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(top: 8.0),
-                                          child: Text(snapshot.data[index]
-                                              ['english_word']),
+                                          child: Text(
+                                            snapshot.data[index]
+                                                ['english_word'],
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
                                       ],
                                     ));
